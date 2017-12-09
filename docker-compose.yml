@@ -1,0 +1,29 @@
+version: '2'
+services:
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=postgres
+    server:
+        build: ./server
+        command: gin
+        volumes:
+            - ./server:/usr/src/server
+        ports:
+            - "8080:3000"
+        links:
+          - postgres
+        environment:
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=postgres
+    client:
+      build: ./client
+      command: npm start
+      volumes:
+        - ./client:/usr/src/client
+        - /usr/src/app/node_modules
+      ports:
+        - "9000:3000"

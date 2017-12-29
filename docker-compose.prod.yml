@@ -1,0 +1,19 @@
+version: '2'
+services:
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_PASSWORD=postgres
+
+    server:
+        build: ./server
+        command: ./main
+        depends_on:
+            - "postgres"
+        environment:
+            - POSTGRES_PASSWORD=postgres
+    
+    nginx:
+        build: ./nginx
+        ports: 
+            - "8002:80"

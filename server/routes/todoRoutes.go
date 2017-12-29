@@ -41,10 +41,11 @@ func InitDb() *gorm.DB {
 	return db
 }
 
-var db = InitDb()
 
 func GetTodos(context *gin.Context) {
 	var Todos []models.Todo
+	db := InitDb()	
+	defer db.Close()
 
 	err := db.Order("id", true).Find(&Todos).Error
 	CheckErr(err, "Failed query to select all")
@@ -54,6 +55,8 @@ func GetTodos(context *gin.Context) {
 
 func GetTodo(context *gin.Context) {
 	id := context.Params.ByName("id")
+	db := InitDb()	
+	defer db.Close()
 
 	var todo models.Todo
 	var err error
@@ -67,7 +70,9 @@ func GetTodo(context *gin.Context) {
 
 func CreateTodo(context *gin.Context) {
 	var todo models.Todo
-	
+	db := InitDb()	
+	defer db.Close()
+
 	if context.BindJSON(&todo) == nil {
 		t := models.NewTodo(todo.Title)
 		var err = db.Create(&todo).Error
@@ -82,6 +87,8 @@ func UpdateTodo(context *gin.Context) {
 
 	var todo models.Todo
 	var err error
+	db := InitDb()	
+	defer db.Close()
 
 	err = db.Find(&todo, "id = ?", id).Error
 
@@ -99,6 +106,8 @@ func DeleteTodo(context *gin.Context) {
 
 	var todo models.Todo
 	var err error
+	db := InitDb()	
+	defer db.Close()
 
 	err = db.Find(&todo, "id = ?", id).Error
 	CheckErr(err, "Could not find todo with id")

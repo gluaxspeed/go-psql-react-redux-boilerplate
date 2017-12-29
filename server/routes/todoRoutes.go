@@ -33,6 +33,7 @@ func InitDb() *gorm.DB {
 
 	Table := db.HasTable(&models.Todo{})
 	if !Table {
+		db.Exec(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
 		err := db.CreateTable(&models.Todo{}).Error
 		CheckErr(err, "Failed to create table")
 	}

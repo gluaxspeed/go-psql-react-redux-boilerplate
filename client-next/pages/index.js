@@ -11,7 +11,7 @@ class Index extends React.Component {
       <div>
         <p>Hello World!</p>
         <Link href="/test">
-          <a>test {`${typeof withRedux}`}</a>
+          <a>test {typeof withRedux}</a>
         </Link>
       </div>
     );

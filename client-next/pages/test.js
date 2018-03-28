@@ -9,7 +9,6 @@ class Test extends Component {
     }
 
     onClick = () => {
-      console.log('hey', typeof redirect);
       redirect('/');
     }
 

@@ -13,11 +13,12 @@ func InitServer() *gin.Engine {
 
 	//recovery middleware for panics
 	//server.Use(gin.Recovery())
+
 	var test []creator.APIFN
 	test = append(test, creator.APIFN{
 		func(con *gin.Context) {
 			con.JSON(200, gin.H{
-				"message": "welcome to bingecringers test api creator",
+				"message": "welcome to test api creator",
 			})
 		},
 		"/",
@@ -25,12 +26,6 @@ func InitServer() *gin.Engine {
 	})
 
 	creator.AddGroup(server, "v1", "test", test)
-
-	server.GET("/", func(con *gin.Context) {
-		con.JSON(200, gin.H{
-			"message": "welcome to bingecringers",
-		})
-	})
 
 	server.NoRoute(func(con *gin.Context) {
 		con.JSON(404, gin.H{

@@ -18,9 +18,11 @@ type APIFN struct {
 }
 
 func AddGroup(server *gin.Engine, version string, api string, fns []APIFN) {
-	v := server.Group("/api/" + version) {
+	v := server.Group("/api/" + version)
+	{
 
-		a := v.Group(api) {
+		a := v.Group(api)
+		{
 
 			for _, element := range fns {
 				switch element.METHOD {

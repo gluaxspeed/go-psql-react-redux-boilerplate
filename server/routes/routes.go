@@ -2,17 +2,21 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+
 	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/apis/creator"
+	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/utils"
 )
 
 func InitServer() *gin.Engine {
 	server := gin.Default()
 
 	//logger
-	//server.Use(gin.Logger())
+	server.Use(gin.Logger())
 
 	//recovery middleware for panics
-	//server.Use(gin.Recovery())
+	server.Use(gin.Recovery())
+
+	jwt := utils.AuthMid()
 
 	var test []creator.APIFN
 	test = append(test, creator.APIFN{
@@ -22,10 +26,12 @@ func InitServer() *gin.Engine {
 			})
 		},
 		"/",
-		creator.HTTP("GET"),
+		true,
+		creator.GET,
 	})
 
-	creator.AddGroup(server, "v1", "test", test)
+	creator.AddGroup(server, jwt, "v1", "test", test)
+	AuthRoutes(server, jwt)
 
 	server.NoRoute(func(con *gin.Context) {
 		con.JSON(404, gin.H{

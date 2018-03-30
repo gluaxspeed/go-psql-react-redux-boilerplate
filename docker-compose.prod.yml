@@ -12,8 +12,8 @@ services:
             - "postgres"
         environment:
             - POSTGRES_PASSWORD=postgres
-    
+
     nginx:
         build: ./nginx
-        ports: 
+        ports:
             - "8002:80"

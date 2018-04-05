@@ -2,6 +2,7 @@ package auth
 
 import (
 	"fmt"
+	"github.com/badoux/checkmail"
 	"github.com/gin-gonic/gin"
 	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/dbservices"
 	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/models"
@@ -21,18 +22,36 @@ func Register(con *gin.Context) {
 
 	dbservices.CheckTable(db, &models.User{})
 
-	if regerr := con.ShouldBindJSON(&json); regerr != nil {
-		fmt.Println(regerr)
+	if err := con.ShouldBindJSON(&json); err != nil {
+		fmt.Println(err)
 		return
 	}
 
-	if finderr := db.Find(user, "username = ?", json.User).Error; finderr != nil {
-
+	lookup := db.Where("username = ?", json.User).Or("email = ?", json.Email)
+	if err := lookup.Find(&user).Error; err == nil {
+		con.JSON(400, gin.H{
+			"error": "already exists",
+		})
+		return
 	}
 
 	if json.Pass != json.PassConf {
 		con.JSON(400, gin.H{
 			"error": "Your password and password confirmation do not match.",
+		})
+		return
+	}
+
+	if err := checkmail.ValidateFormat(json.Email); err != nil {
+		con.JSON(400, gin.H{
+			"error": "Invalid email.",
+		})
+		return
+	}
+
+	if err := checkmail.ValidateHost(json.Email); err != nil {
+		con.JSON(400, gin.H{
+			"error": "Invalid email.",
 		})
 		return
 	}
@@ -46,10 +65,8 @@ func Register(con *gin.Context) {
 	}
 
 	user = models.NewUser(json.User, hash, json.First, json.Last, json.Email)
-	fmt.Println(user.ID)
 
-	err = db.Create(&user).Error
-	if err != nil {
+	if err := db.Create(&user).Error; err != nil {
 		fmt.Println(err)
 		return
 	}

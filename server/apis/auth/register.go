@@ -30,7 +30,7 @@ func Register(con *gin.Context) {
 	lookup := db.Where("username = ?", json.User).Or("email = ?", json.Email)
 	if err := lookup.Find(&user).Error; err == nil {
 		con.JSON(400, gin.H{
-			"error": "already exists",
+			"error": "Username or email is taken.",
 		})
 		return
 	}
@@ -49,9 +49,18 @@ func Register(con *gin.Context) {
 		return
 	}
 
-	if err := checkmail.ValidateHost(json.Email); err != nil {
+	verr := checkmail.ValidateHost(json.Email)
+	if verr != nil {
 		con.JSON(400, gin.H{
-			"error": "Invalid email.",
+			"error": "Invalid email host.",
+		})
+		return
+	}
+
+	if smtpErr, ok := verr.(checkmail.SmtpError); ok && verr != nil {
+		fmt.Printf("Code: %s, Msg: %s", smtpErr.Code(), smtpErr)
+		con.JSON(400, gin.H{
+			"error": "Email does not exist.",
 		})
 		return
 	}

@@ -1,6 +1,10 @@
 import { redirect, setCookie, getCookie, removeCookie } from "../utils";
 
+<<<<<<< HEAD
 export async function signIn(email, password) {
+=======
+export const async function signIn(email, password) {
+>>>>>>> 4470f5fb4db3c6c37e25f0821af3f13e2f8dab17
 
 
   setCookie("jwt", res.jwt);

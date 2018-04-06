@@ -21,7 +21,7 @@ services:
             - POSTGRES_DB=postgres
     client:
       build: ./client
-      command: npm start
+      command: npm run dev -- -p 9000
       volumes:
         - ./client:/usr/src/client
         - /usr/src/app/node_modules

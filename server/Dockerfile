@@ -1,12 +1,11 @@
-FROM golang:latest
-RUN go get github.com/gin-gonic/gin
-RUN go get github.com/lib/pq
-RUN go get github.com/jinzhu/gorm
-RUN go get github.com/codegangsta/gin
-RUN go get gopkg.in/gorp.v1
-RUN go get github.com/satori/go.uuid
-RUN mkdir -p /usr/src/server
-ADD . /usr/src/server/
-WORKDIR /usr/src/server
-RUN go build main.go
-ENV PORT 8080
+FROM golang:alpine
+RUN mkdir -p /go/src/github.com/gluaxspeed/go-psql-react-redux-boilerplate/server
+WORKDIR /go/src/github.com/gluaxspeed/go-psql-react-redux-boilerplate/server
+COPY . .
+RUN apk update
+RUN apk add git
+RUN go get -d -v ./...
+RUN go install -v ./...
+ARG mode=debug
+ENV GIN_MODE=debug
+CMD ["server"]

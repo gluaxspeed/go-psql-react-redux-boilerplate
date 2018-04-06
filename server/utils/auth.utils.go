@@ -15,7 +15,7 @@ func AuthMid() *jwt.GinJWTMiddleware {
 		MaxRefresh:    time.Hour * 24,
 		Authenticator: auth.Authenticator,
 		Authorizator:  auth.Authorizator,
-		//Unauthorized: func(),
+		Unauthorized:  auth.Unauthorized,
 		TokenLookup:   "header:Authorization",
 		TokenHeadName: "Bearer",
 		TimeFunc:      time.Now,

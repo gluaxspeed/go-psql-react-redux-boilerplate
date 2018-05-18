@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/badoux/checkmail"
 	"github.com/gin-gonic/gin"
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/dbservices"
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/models"
+	"go-psql-react-redux-boilerplate/server/dbservices"
+	"go-psql-react-redux-boilerplate/server/models"
 	"golang.org/x/crypto/bcrypt"
 )
 

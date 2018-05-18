@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/routes"
+	"go-psql-react-redux-boilerplate/server/routes"
 )
 
 func main() {

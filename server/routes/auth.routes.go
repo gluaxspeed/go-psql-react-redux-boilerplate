@@ -3,8 +3,8 @@ package routes
 import (
 	"github.com/appleboy/gin-jwt"
 	"github.com/gin-gonic/gin"
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/apis/auth"
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/apis/creator"
+	"go-psql-react-redux-boilerplate/server/apis/auth"
+	"go-psql-react-redux-boilerplate/server/apis/creator"
 )
 
 func AuthRoutes(server *gin.Engine, jwt *jwt.GinJWTMiddleware) {

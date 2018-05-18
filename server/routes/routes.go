@@ -3,8 +3,8 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/apis/creator"
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/utils"
+	"go-psql-react-redux-boilerplate/server/apis/creator"
+	"go-psql-react-redux-boilerplate/server/utils"
 )
 
 func InitServer() *gin.Engine {
@@ -26,7 +26,7 @@ func InitServer() *gin.Engine {
 			})
 		},
 		"/",
-		true,
+		false,
 		creator.GET,
 	})
 

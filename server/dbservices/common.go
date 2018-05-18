@@ -6,7 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 
-	"github.com/gluaxspeed/go-psql-react-redux-boilerplate/server/models"
+	"go-psql-react-redux-boilerplate/server/models"
 )
 
 func CheckTable(db *gorm.DB, tableStruct interface{}) {

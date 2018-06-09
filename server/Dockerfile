@@ -1,6 +1,6 @@
 FROM golang:alpine
-RUN mkdir -p /go/src/github.com/gluaxspeed/go-psql-react-redux-boilerplate/server
-WORKDIR /go/src/github.com/gluaxspeed/go-psql-react-redux-boilerplate/server
+RUN mkdir -p /go/src/go-psql-react-redux-boilerplate/server
+WORKDIR /go/src/go-psql-react-redux-boilerplate/server
 COPY . .
 RUN apk update
 RUN apk add git

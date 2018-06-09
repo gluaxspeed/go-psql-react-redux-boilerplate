@@ -9,10 +9,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func register(username string, password string, first string, last string) bool {
-	return true
-}
-
 func Register(con *gin.Context) {
 	var json models.Register
 	var user models.User

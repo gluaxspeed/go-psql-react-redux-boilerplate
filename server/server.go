@@ -1,18 +1,68 @@
 package main
 
 import (
+	"context"
+	"log"
+	"net/http"
 	"os"
+	"os/signal"
+	"time"
 
-	"go-psql-react-redux-boilerplate/server/routes"
+	"ts/api"
 )
 
-func main() {
-	port := os.Getenv("PORT")
-	server := routes.InitServer()
+type Task struct {
+	closed chan struct{}
+	server *http.Server
+}
 
-	if port == "" {
-		port = "3001"
+func (t *Task) Run() {
+	for {
+		select {
+		case <- t.closed:
+			return			
+		}
+	}
+}
+
+func (t *Task) Start() {
+	err := t.server.ListenAndServe()
+	if err != nil {
+		log.Fatalf("listen: %s\n", err)
+	}
+}
+
+func (t *Task) Stop() {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := t.server.Shutdown(ctx); err != nil {
+		log.Fatal("Server Shutdown:", err)
 	}
 
-	server.Run(":" + port)
+	close(t.closed)
+}
+
+func main() {
+	task := &Task{
+		closed: make(chan struct{}),
+		server: &http.Server{
+			Addr: ":5555",
+			Handler: api.InitRouter(),
+		},
+	}
+
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt)
+
+	go func() {
+		select {
+		case sig := <-c:
+			log.Printf("Got %s signal. Aborting...\n", sig)
+			task.Stop()
+		}
+	}()
+
+	task.Start()
+	task.Run()
 }

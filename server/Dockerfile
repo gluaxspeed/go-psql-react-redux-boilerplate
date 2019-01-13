@@ -1,11 +1,9 @@
-FROM golang:alpine
-RUN mkdir -p /go/src/go-psql-react-redux-boilerplate/server
-WORKDIR /go/src/go-psql-react-redux-boilerplate/server
-COPY . .
-RUN apk update
-RUN apk add git
-RUN go get -d -v ./...
-RUN go install -v ./...
-ARG mode=debug
+FROM golang:1.11.4
+
+RUN mkdir -p /usr/src/server
+ADD . /usr/src/server
+WORKDIR /usr/src/server
+
+RUN go get && go build && go get github.com/codegangsta/gin
 ENV GIN_MODE=debug
-CMD ["server"]
+CMD ["gin", "server.go"]

@@ -1,25 +1,17 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "modules": false
       }
     ],
-    "react",
-    "stage-3"
+    "@babel/preset-react"
   ],
-  "env": {
-    "production": {
-      "only": ["app"],
-      "plugins": [
-        "transform-react-remove-prop-types",
-        "transform-react-constant-elements",
-        "transform-react-inline-elements"
-      ]
-    },
-    "test": {
-      "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
-    }
-  }
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-react-constant-elements",
+    "@babel/plugin-transform-react-inline-elements",
+    "@babel/plugin-proposal-class-properties"
+  ]
 }

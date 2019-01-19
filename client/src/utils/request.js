@@ -8,7 +8,6 @@ function parseJSON(response) {
 }
 
 function checkStatus(response) {
-  console.log('here bitch', response);
   if (response.status >= 200 && response.status < 300) {
     return response;
   }

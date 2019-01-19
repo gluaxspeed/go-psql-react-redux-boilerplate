@@ -4,11 +4,11 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import { makeSelectUserTodos } from 'containers/App/selectors';
 import {
 	makeSelectTodo,
 	makeSelectError,
 	makeSelectLoading,
-	makeSelectTodos
 } from './selectors';
 import { loadTodos, changeTodo } from './actions';
 import homeReducer from './reducer';
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-	todos: makeSelectTodos(),
+	todos: makeSelectUserTodos(),
 	todo: makeSelectTodo(),
 	loading: makeSelectLoading(),
 	error: makeSelectError(),

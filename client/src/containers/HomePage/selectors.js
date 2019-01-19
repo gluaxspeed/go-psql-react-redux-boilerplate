@@ -18,15 +18,9 @@ const makeSelectError = () => createSelector(
   (homeState) => homeState.get('error')
 );
 
-const makeSelectTodos = () => createSelector(
-  selectHome,
-  (homeState) => homeState.getIn(['userData', 'todos'])
-);
-
 export {
   selectHome,
   makeSelectTodo,
   makeSelectLoading,
-  makeSelectTodos,
-  makeSelectError
+  makeSelectError,
 };

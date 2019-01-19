@@ -8,10 +8,9 @@ import request from 'utils/request';
 export function* getTodos() {
 	try {
 		const todo = select(makeSelectTodo());
-		const reqUrl = '173.2.130.122:5555/api/v1/todo/get';
+		const reqUrl = 'http://localhost:5000/api/v1/todo/get';
 		const todos = yield call(request, reqUrl);
-		// console.log('todos', todos);
-		yield put(todosLoaded(['hi', 'fack', 'no']));
+		yield put(todosLoaded(todos));
 	} catch(error) {
 		yield put(todosLoadingError(error));
 	}

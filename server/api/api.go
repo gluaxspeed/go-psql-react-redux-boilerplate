@@ -9,6 +9,7 @@ import (
 	"ts/db"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 )
 
 func init() {
@@ -33,6 +34,8 @@ func NotFound(c *gin.Context) {
 func InitRouter() *gin.Engine {
 	router := gin.New()
 
+	router.Use(cors.Default())
+
 	// middlewares
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
@@ -42,7 +45,7 @@ func InitRouter() *gin.Engine {
 		NewRoute(auth.AuthMiddleware.RefreshHandler, "refresh_token", false, GET),
 		NewRoute(auth.Register, "register", false, POST),
 		NewRoute(func(c *gin.Context) {
-			c.JSON(200)
+			c.JSON(200, gin.H{"valid": true})
 		}, "validate", true, GET),
 	}
 	AddRoutes(router, auth.AuthMiddleware, "1", "auth", authEndpoints)

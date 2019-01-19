@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 import TodosList from 'components/TodosList';
+import withStore from 'utils/withStore';
 import './style.scss';
 
 export default class HomePage extends React.PureComponent {
@@ -30,6 +31,10 @@ export default class HomePage extends React.PureComponent {
       todos,
 		};
 
+		const {
+			todo
+		} = this.state;
+
 		return (
 			<article>
 				<Helmet>
@@ -52,7 +57,7 @@ export default class HomePage extends React.PureComponent {
                 <input
                   id="todo"
                   type="text"
-                  value={this.state.todo}
+                  value={todo}
                   onChange={this.onChange}
 								/>
 								<button>Create</button>
@@ -68,12 +73,12 @@ export default class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-	loading: PropTypes.bool,
+	loading: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-	]),
-	onSubmitForm: PropTypes.func,
-	todo: PropTypes.string,
-	onChangeTodo: PropTypes.func,
+  	PropTypes.bool,
+  	PropTypes.string
+  ]).isRequired,
+	onSubmitForm: PropTypes.func.isRequired,
+	todo: PropTypes.string.isRequired,
+	onChangeTodo: PropTypes.func.isRequired,
 };

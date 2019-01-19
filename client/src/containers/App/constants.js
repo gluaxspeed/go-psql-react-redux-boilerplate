@@ -1,0 +1,1 @@
+export const SET_EMAIL = 'boilerplate/App/SET_EMAIL';

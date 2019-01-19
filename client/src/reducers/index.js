@@ -4,13 +4,7 @@ import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import history from 'utils/history';
-
-function globalReducer(state = fromJS({email: false}), action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
+import globalReducer from 'containers/App/reducer.js';
 
 const routeInitialState = fromJS({
   location: null

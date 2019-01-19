@@ -10,10 +10,6 @@ import {
 export const initialState = fromJS({
 	loading: false,
 	error: false,
-	currentUser: false,
-	userData: {
-		todos: [],
-	},
 	todo: '',
 });
 

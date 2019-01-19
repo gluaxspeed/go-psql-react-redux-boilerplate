@@ -5,6 +5,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import getInjectors from './sagaInjectors';
 import withStore from './withStore';
 
+
 export default ({ key, saga, mode }) => (WrappedComponent) => {
   class InjectSaga extends React.Component {
     static WrappedComponent = WrappedComponent;

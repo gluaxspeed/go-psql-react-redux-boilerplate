@@ -1,8 +1,8 @@
-import { SET_EMAIL } from './constants';
+import { SET_TODOS } from './constants';
 
-export function setEmail(email) {
+export function setTodos(todos) {
 	return {
-		type: SET_EMAIL,
-		email,
+		type: SET_TODOS,
+		todos,
 	};
 }

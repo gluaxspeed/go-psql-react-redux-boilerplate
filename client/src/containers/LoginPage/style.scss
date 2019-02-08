@@ -1,0 +1,35 @@
+.forms-container {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
+	.form-wrapper {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		
+		form > * {
+			display: flex;
+			flex-direction: column;
+			margin: 1em auto;
+
+		}
+		
+		.element {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+
+			label {
+				margin: 10px;
+				padding: 20px;
+			}
+
+			input {
+				margin: 10px;
+				padding: 20px;
+			}
+		}
+	}
+}

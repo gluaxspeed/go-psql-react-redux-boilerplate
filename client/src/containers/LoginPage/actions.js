@@ -4,6 +4,14 @@ import {
 	LOGIN,
 	LOGIN_ERROR,
 	LOGIN_SUCCESS,
+	SIGNUP,
+	SIGNUP_SUCCESS,
+	SIGNUP_ERROR,
+	CHANGE_SUSERNAME,
+	CHANGE_SPASSWORD,
+	CHANGE_SCONFIRM,
+	CHANGE_SFIRST,
+	CHANGE_SLAST,
 } from './constants';
 
 export function changeUsername(username) {
@@ -20,11 +28,9 @@ export function changePassword(password) {
 	};
 }
 
-export function login(username, password) {
+export function login() {
 	return {
 		type: LOGIN,
-		username,
-		password,
 	};
 }
 
@@ -35,9 +41,62 @@ export function loginError(error) {
 	};
 }
 
-export function loginSuccess(email) {
+export function loginSuccess() {
 	return {
 		type: LOGIN_SUCCESS,
-		email
+	};
+}
+
+export function changeRusername(username) {
+	return {
+		type: CHANGE_SUSERNAME,
+		username
+	};
+}
+
+export function changeRpassword(password) {
+	return {
+		type: CHANGE_SPASSWORD,
+		password
+	};
+}
+
+export function changeConfirm(confirm) {
+	return {
+		type: CHANGE_SCONFIRM,
+		confirm
+	};
+}
+
+export function changeFirst(first) {
+	return {
+		type: CHANGE_SFIRST,
+		first
+	};
+}
+
+export function changeLast(last) {
+	return {
+		type: CHANGE_SLAST,
+		last
+	};
+}
+
+export function register() {
+	return {
+		type: SIGNUP,
+	};
+}
+
+export function registerError(error) {
+	return {
+		type: SIGNUP_ERROR,
+		error
+	};
+}
+
+export function registerSuccess() {
+	return {
+		type: SIGNUP_SUCCESS,
 	};
 }

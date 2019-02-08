@@ -15,6 +15,11 @@ export default class HomePage extends React.PureComponent {
 		};
 
 		this.onChange = this.onChange.bind(this);
+		this.createTodo = this.createTodo.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.updateTodos();
 	}
 
 	onChange(e) {
@@ -23,13 +28,26 @@ export default class HomePage extends React.PureComponent {
 		this.props.onChangeTodo(todo);
 	}
 
+	createTodo(e) {
+		this.props.onSubmitForm(e);
+		this.setState({ todo: '' });
+		this.props.onChangeTodo('');
+	}
+
 	render() {
 		const { loading, error, todos } = this.props;
+		const { onClickCheck, onClickDelete } = this.props;
+		const todosListEffects = {
+			onClickDelete,
+			onClickCheck,
+		};
     const todosListProps = {
       loading,
       error,
       todos,
+      effects: todosListEffects,
 		};
+
 
 		const {
 			todo
@@ -50,7 +68,7 @@ export default class HomePage extends React.PureComponent {
 
 					<section>
 						<h2>Add Todo</h2>
-						<form onSubmit={this.props.onSubmitForm}>
+						<form onSubmit={this.createTodo}>
               <label htmlFor="todo">
               Create New Todo
                 <span className="at-prefix">@</span>
@@ -60,8 +78,8 @@ export default class HomePage extends React.PureComponent {
                   value={todo}
                   onChange={this.onChange}
 								/>
-								<button>Create</button>
 							</label>
+								<button>Create</button>
 						</form>
 					</section>
 
@@ -73,12 +91,15 @@ export default class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-	loading: PropTypes.bool.isRequired,
+	loading: PropTypes.bool,
   error: PropTypes.oneOfType([
   	PropTypes.bool,
   	PropTypes.string
-  ]).isRequired,
-	onSubmitForm: PropTypes.func.isRequired,
-	todo: PropTypes.string.isRequired,
-	onChangeTodo: PropTypes.func.isRequired,
+  ]),
+	onSubmitForm: PropTypes.func,
+	todo: PropTypes.string,
+	onChangeTodo: PropTypes.func,
+	updateTodos: PropTypes.func,
+	onClickCheck: PropTypes.func,
+  onClickDelete: PropTypes.func,
 };

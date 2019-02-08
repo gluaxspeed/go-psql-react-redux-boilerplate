@@ -12,7 +12,7 @@ func PayloadFunc(data interface{}) jwt.MapClaims {
 	case usermodels.User:
 		user := data.(usermodels.User)
 		return jwt.MapClaims{
-			"uid":         user.ID,
+			"uid": user.ID,
 		}
 	default:
 		return jwt.MapClaims{}

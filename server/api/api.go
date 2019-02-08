@@ -34,7 +34,11 @@ func NotFound(c *gin.Context) {
 func InitRouter() *gin.Engine {
 	router := gin.New()
 
-	router.Use(cors.Default())
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
+	config.AllowCredentials = true
+	config.AllowHeaders = append(config.AllowHeaders, "Authorization", "Content-Type")
+	router.Use(cors.New(config))
 
 	// middlewares
 	router.Use(gin.Logger())
@@ -54,7 +58,7 @@ func InitRouter() *gin.Engine {
 		NewRoute(todo.New, "new", true, POST),
 		NewRoute(todo.Delete, "delete/:id", true, POST),
 		NewRoute(todo.GetAll, "get", true, GET),
-		NewRoute(todo.Update, "update/:id", true, PATCH),
+		NewRoute(todo.Update, "update/:id", true, POST),
 	}
 	AddRoutes(router, auth.AuthMiddleware, "1", "todo", todoEndpoints)
 

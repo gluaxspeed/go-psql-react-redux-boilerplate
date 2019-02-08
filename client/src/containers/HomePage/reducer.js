@@ -1,10 +1,11 @@
 import { fromJS } from 'immutable';
 
 import {
-	CHANGE_TODO,
 	LOAD_TODOS,
-	LOAD_TODOS_ERROR,
-	LOAD_TODOS_SUCCESS, 
+	CHANGE_TODO,
+	NEW_TODO,
+	EVENT_SUCCESS,
+	EVENT_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -13,7 +14,7 @@ export const initialState = fromJS({
 	todo: '',
 });
 
-function homeReducer(state = initialState, action) {
+export default function homeReducer(state = initialState, action) {
 	switch (action.type) {
 		case CHANGE_TODO:
 			return state.set('todo', action.todo.replace(/@/gi, ''));
@@ -21,22 +22,23 @@ function homeReducer(state = initialState, action) {
 		case LOAD_TODOS:
 			return state
 				.set('loading', true)
-				.set('error', false)
-				.setIn(['userData', 'todos'], action.todos);
+				.set('error', false);
 	
-		case LOAD_TODOS_SUCCESS:
+		case EVENT_SUCCESS:
 			return state
-				.set('loading', false)
-				.setIn(['userData', 'todos'], action.todos);
+				.set('loading', false);
 	
-		case LOAD_TODOS_ERROR:
+		case EVENT_ERROR:
 			return state
 				.set('error', action.error.message)
 				.set('loading', false);
+
+		case NEW_TODO:
+			return state
+				.set('loading', true)
+				.set('error', false);
 	
 		default:
 			return state;
 	}
 }
-
-export default homeReducer;

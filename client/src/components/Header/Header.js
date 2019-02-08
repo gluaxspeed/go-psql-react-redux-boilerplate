@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
-import { enter, github, home3 } from 'react-icons-kit/icomoon';
+import { enter, github, home3, user } from 'react-icons-kit/icomoon';
 import './style.scss';
 
-class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Header extends React.Component {
 	render() {
 	  return (
 	    <div className="header">
@@ -17,6 +17,9 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
 	        </Link>
 	        <Link className="nav-link" to="/login">
 	        	<Icon icon={enter} />
+	        </Link>
+	        <Link className="nav-link" to="/user">
+	        	<Icon icon={user} />
 	        </Link>
 	      </div>
 	    </div>

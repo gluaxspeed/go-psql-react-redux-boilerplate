@@ -1,19 +1,18 @@
 import { fromJS } from 'immutable';
 
-import { SET_EMAIL } from './constants';
+import { SET_TODOS } from './constants';
 
 export const initialState = fromJS({
 	userData: {
-		email: false,
 		todos: [],
 	},
 });
 
 function appReducer(state = initialState, action) {
 	switch(action.type) {
-		case SET_EMAIL:
+		case SET_TODOS:
 			return state
-				.setIn(['userData', 'email'], action.email);
+				.setIn(['userData', 'todos'], action.todos);
 
 		default:
 			return state;

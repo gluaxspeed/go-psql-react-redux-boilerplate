@@ -28,7 +28,7 @@ const TodosList = ({ loading, error, todos }) => {
 TodosList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  todos: PropTypes.any
+  todos: PropTypes.any,
 };
 
 export default TodosList;

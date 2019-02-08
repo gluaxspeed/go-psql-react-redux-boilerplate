@@ -1,4 +1,4 @@
-import { connect, ReactReduxContext } from 'react-redux';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -10,17 +10,30 @@ import {
 	makeSelectError,
 	makeSelectLoading,
 } from './selectors';
-import { loadTodos, changeTodo } from './actions';
+import { loadTodos, changeTodo, newTodo } from './actions';
 import homeReducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
 	onChangeTodo: (todo) => dispatch(changeTodo(todo)),
-	onSubmitForm: (evt) => {
+	updateTodos: (evt) => {
 		if (evt !== undefined && evt.preventDefault) evt.preventDefault();
 		dispatch(loadTodos());
-	}
+	},
+	onSubmitForm: async (evt) => {
+		if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+		await dispatch(newTodo());
+		await dispatch(loadTodos());
+	},
+	onClickCheck: async (evt) => {
+		if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+		console.log('check')
+	},
+  onClickDelete: async (evt) => {
+  	if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+  	console.log('cross')
+  },
 });
 
 const mapStateToProps = createStructuredSelector({

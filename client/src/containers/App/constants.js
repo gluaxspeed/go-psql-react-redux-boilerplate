@@ -1,1 +1,1 @@
-export const SET_EMAIL = 'boilerplate/App/SET_EMAIL';
+export const SET_TODOS = 'boilerplate/App/SET_TODOS';

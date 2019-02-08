@@ -1,21 +1,65 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, fork, put, select, takeLatest } from 'redux-saga/effects';
 
-import { LOAD_TODOS } from './constants';
-import { todosLoaded, todosLoadingError} from './actions'
-import { makeSelectTodo } from './selectors';
-import request from 'utils/request';
+import { LOGIN, SIGNUP } from './constants';
+import { loginSuccess, loginError } from './actions'
+import {
+	makeSelectUsername,
+	makeSelectPassword,
+	makeSelectRusername,
+  makeSelectRpassword,
+  makeSelectConfirm,
+  makeSelectFirst,
+  makeSelectLast,
+} from './selectors';
+import { post } from 'utils/request';
 
-export function* getTodos() {
+export function* login() {
 	try {
-		const todo = select(makeSelectTodo());
-		const reqUrl = 'http://localhost:5000/api/v1/auth/login';
-		const todos = yield call(request, reqUrl);
-		yield put(todosLoaded(todos));
+		const email = yield select(makeSelectUsername());
+		const password = yield select(makeSelectPassword());
+		const reqUrl = 'auth/login';
+		const user = yield call(
+			post, 
+			reqUrl, 
+			{
+				email,
+				password,
+			},
+		);
+		yield put(loginSuccess());
 	} catch(error) {
-		yield put(todosLoadingError(error));
+		yield put(loginError(error));
 	}
 }
 
-export default function* todoData() {
-	yield takeLatest(LOAD_TODOS, getTodos);
+export function* signUp() {
+	try {
+		const email = yield select(makeSelectRusername());
+	  const password = yield select(makeSelectRpassword());
+	  const confirm = yield select(makeSelectConfirm());
+	  const first = yield select(makeSelectFirst());
+	  const last = yield select(makeSelectLast());
+
+	  const user = yield call(
+			post, 
+			'auth/register', 
+			{
+				email,
+				password,
+				confirm,
+				first,
+				last,
+			},
+		);
+		yield put(loginSuccess());
+	} catch(error) {
+		yield put(loginError(error));
+	}
+}
+
+export default function* watcher() {
+	yield [
+		takeLatest(LOGIN, login),
+		takeLatest(SIGNUP, signUp),
+	];
 }

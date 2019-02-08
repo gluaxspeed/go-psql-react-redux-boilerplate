@@ -3,25 +3,35 @@
   height: 100%;
   display: flex;
   align-items: space-between;
+}
 
-  &__issue-link {
-    height: 100%;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.strike {
+  text-decoration: line-through;
+}
+
+.todo-list-item-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: space-between;
+
+  button {
+    background: #99b2db;
+    width: 3em;
+    border-radius: 4em;
+    box-shadow: 1em 1em 6em;
   }
 
-  &__todo-link {
-    height: 100%;
-    color: black;
-    display: flex;
-    align-items: center;
-    width: 100%;
+  button:hover {
+    background: #1a4489;
   }
 
-  &__issue-icon {
-    fill: #ccc;
-    margin-right: 0.25em;
+  .left {
+    margin-right: 2em;
+    color: green;
+  }
+
+  .right {
+    color: red;
   }
 }

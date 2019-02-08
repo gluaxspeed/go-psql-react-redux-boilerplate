@@ -1,8 +1,9 @@
 import {
 	CHANGE_TODO,
 	LOAD_TODOS,
-	LOAD_TODOS_ERROR,
-	LOAD_TODOS_SUCCESS, 
+	EVENT_ERROR,
+	EVENT_SUCCESS,
+	NEW_TODO,
 } from './constants';
 
 export function changeTodo(todo) {
@@ -19,16 +20,21 @@ export function loadTodos(email) {
 	};
 }
 
-export function todosLoaded(todos) {
+export function loadingSuccess() {
 	return {
-		type: LOAD_TODOS_SUCCESS,
-		todos,
+		type: EVENT_SUCCESS,
 	};
 }
 
-export function todosLoadingError(error) {
+export function loadingError(error) {
 	return {
-		type: LOAD_TODOS_ERROR,
+		type: EVENT_ERROR,
 		error
+	};
+}
+
+export function newTodo() {
+	return {
+		type: NEW_TODO,
 	};
 }

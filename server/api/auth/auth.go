@@ -16,7 +16,7 @@ func Init() error {
 
 // AuthMiddleware is a jwt middleware for auth requests
 var AuthMiddleware = &jwt.GinJWTMiddleware{
-	Realm:         "boilerplate",
+	Realm:         "127.0.0.1",
 	Key:           []byte("secret"),
 	Timeout:       time.Hour,
 	MaxRefresh:    time.Hour * 24,

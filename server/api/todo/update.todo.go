@@ -1,6 +1,7 @@
 package todo
 
 import (
+	"fmt"
 	"ts/forms/todoforms"
 	
 	jwt "github.com/appleboy/gin-jwt"
@@ -8,9 +9,10 @@ import (
 )
 
 func Update(c *gin.Context) {
-	var del todoforms.UpdateTodoForm
-	err := c.ShouldBindJSON(&del)
+	var update todoforms.UpdateTodoForm
+	err := c.ShouldBindJSON(&update)
 	if err != nil {
+		fmt.Println("plz", err)
 		c.Writer.Header().Add("Content-Type", "application/json+error")
 		c.AbortWithStatusJSON(400, gin.H{
 			"status_code": 400,
@@ -21,8 +23,9 @@ func Update(c *gin.Context) {
 	}
 
 	claims := jwt.ExtractClaims(c)
-	err = model.UpdateTodo(claims["uid"].(string), c.Param("id"), del)
+	err = model.UpdateTodo(claims["uid"].(string), c.Param("id"), update)
 	if err != nil {
+		fmt.Println("plz2", err)
 		c.Writer.Header().Add("Content-Type", "application/json+error")
 		c.JSON(400, gin.H{
 			"status_code": 400,

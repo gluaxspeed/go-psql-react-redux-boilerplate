@@ -7,9 +7,10 @@ const List = (props) => {
   let content = (<div></div>);
 
   if (props.items) {
-    content = props.items.map((item) => (
-      <ComponentToRender key={`item-${item}`} item={item} />
-    ));
+    content = props.items.map((item, index) => {
+      item.index = index;
+      return (<ComponentToRender key={`item-${item.id}`} item={item} />);
+    });
   } else {
     content = (<ComponentToRender />);
   }

@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { LOAD_TODOS, NEW_TODO } from './constants';
 import { loadingSuccess, loadingError} from './actions';
@@ -37,8 +37,8 @@ export function* createTodo() {
 }
 
 export default function* watcher() {
-	yield [
+	yield all([
 		takeLatest(LOAD_TODOS, getTodos),
 		takeLatest(NEW_TODO, createTodo)
-	];
+	]);
 }

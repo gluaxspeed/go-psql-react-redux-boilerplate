@@ -26,14 +26,6 @@ const mapDispatchToProps = (dispatch) => ({
 		await dispatch(newTodo());
 		await dispatch(loadTodos());
 	},
-	onClickCheck: async (evt) => {
-		if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-		console.log('check')
-	},
-  onClickDelete: async (evt) => {
-  	if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-  	console.log('cross')
-  },
 });
 
 const mapStateToProps = createStructuredSelector({

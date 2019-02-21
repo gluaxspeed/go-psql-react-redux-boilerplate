@@ -9,7 +9,7 @@ const List = (props) => {
   if (props.items) {
     content = props.items.map((item, index) => {
       item.index = index;
-      return (<ComponentToRender key={`item-${item.id}`} item={item} />);
+      return (<ComponentToRender key={`item-${item.id}`} item={item} effects={props.effects} />);
     });
   } else {
     content = (<ComponentToRender />);
@@ -27,6 +27,7 @@ const List = (props) => {
 List.propTypes = {
   component: PropTypes.func.isRequired,
   items: PropTypes.array,
+  effects: PropTypes.object,
 };
 
 export default List;

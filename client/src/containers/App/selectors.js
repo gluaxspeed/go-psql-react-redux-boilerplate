@@ -8,13 +8,13 @@ const makeSelectUserTodos = () => createSelector(
   (globalState) => globalState.getIn(['userData', 'todos'])
 );
 
-const makeSelectUserToken = () => createSelector(
+const makeSelectLoggedIn = () => createSelector(
 	selectGlobal,
-	(globalState) => globalState.getIn(['userData', 'token'])
+	(globalState) => globalState.get('logged_in')
 );
 
 export {
 	selectGlobal,
-	makeSelectUserToken,
+	makeSelectLoggedIn,
 	makeSelectUserTodos,
 }

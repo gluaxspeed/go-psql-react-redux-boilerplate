@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import TodosList from 'components/TodosList';
+import TodosList from 'containers/TodosList';
 import withStore from 'utils/withStore';
 import './style.scss';
 
@@ -36,16 +36,10 @@ export default class HomePage extends React.PureComponent {
 
 	render() {
 		const { loading, error, todos } = this.props;
-		const { onClickCheck, onClickDelete } = this.props;
-		const todosListEffects = {
-			onClickDelete,
-			onClickCheck,
-		};
     const todosListProps = {
       loading,
       error,
       todos,
-      effects: todosListEffects,
 		};
 
 
@@ -100,6 +94,4 @@ HomePage.propTypes = {
 	todo: PropTypes.string,
 	onChangeTodo: PropTypes.func,
 	updateTodos: PropTypes.func,
-	onClickCheck: PropTypes.func,
-  onClickDelete: PropTypes.func,
 };

@@ -5,5 +5,5 @@ type AddTodoForm struct {
 }
 
 type UpdateTodoForm struct {
-	Completed bool `json:"completed" binding:"required"`
+	Completed bool `json:"completed" binding:"exists"`
 }
